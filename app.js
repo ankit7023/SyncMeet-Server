@@ -1,3 +1,4 @@
+const cors = require('cors');
 require("dotenv").config();
 require("express-async-errors");
 
@@ -13,6 +14,7 @@ const webRTCSignalingSocket = require("./controllers/sockets");
 const Session = require("./models/session");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 const server = http.createServer(app);
@@ -56,7 +58,7 @@ app.use(errorHandlerMiddleware);
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
-    server.listen(process.env.PORT || 3000, "0.0.0.0", () =>
+    server.listen(process.env.PORT || 10000, "0.0.0.0", () =>
       console.log(
         `HTTP server is running on port http://localhost:${
           process.env.PORT || 3000
